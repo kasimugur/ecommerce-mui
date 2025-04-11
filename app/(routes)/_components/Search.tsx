@@ -19,15 +19,21 @@ const SearchComponent = () => {
       alignItems: 'center',
       border: '1px solid',
       borderColor: 'divider',
-      borderRadius: 1,
-      width: '100%',
-      // maxWidth: 600,
+      borderRadius: 2,
+      width: '100vh',
+      height:'46px',
+      maxWidth: '670px',
       overflow: 'hidden',
+      fontSize:'14px',
+      lineHeight:'25.2px',
       '&:focus-within': {
         borderColor: 'red',
         borderWidth: 2,
         margin: '-1px' // Border kalınlaşınca kaymayı önler
-      }
+      },
+      backgroundColor:'#F3F5F9',
+      '&:hover':{border:'1px solid #000000'},
+      color: '#2b3445'
     }}
   >
     {/* Arama kısmı */}
@@ -38,8 +44,11 @@ const SearchComponent = () => {
       // onChange={(e) => setSearchText(e.target.value)}
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon color="action" />
+          <InputAdornment 
+          position="start">
+          <div className='pr-4 pl-[2] border-r-[0.5px] border-solid border-[#e4e6e9]'>
+          <SearchIcon  color="action" />
+          </div>
           </InputAdornment>
         ),
         sx: {
@@ -52,7 +61,9 @@ const SearchComponent = () => {
       sx={{
         '& .MuiOutlinedInput-root': {
           borderRadius: 0
-        }
+        },
+        paddingLeft:0
+        
       }}
     />
 
@@ -66,9 +77,11 @@ const SearchComponent = () => {
       displayEmpty
       sx={{
         width: 180,
+        fontSize:'14px',
+        lineHeight:'25.2px',
         '& .MuiSelect-select': {
-          padding: '12px 14px',
-          color:'red'
+          // LepaddingLeft: '12px 14px',
+          color:'#4B566B'
         },
         '& fieldset': {
           border: 'none',
