@@ -1,5 +1,6 @@
 'use client'
 import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Rating, Typography } from '@mui/material'
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 const labels: { [index: string]: string } = {
   1: '(1)',
@@ -14,15 +15,15 @@ function getLabelText(value: number) {
 const CardProduct = () => {
   const [value, setValue] = React.useState<number | null>(2);
   const [isHovered, setIsHovered] = React.useState(false);
-
+  const router = useRouter();
   return (
     <div className='px-[10px]'>
-      <Card className='bg-[#383838] mt-12' sx={{ maxWidth: 348, backgroundColor: '#F6F9FC' }} 
+      <Card className='bg-[#383838] mt-12' sx={{ maxWidth: 348, backgroundColor: '#F6F9FC' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
         <CardActionArea >
           <CardMedia
-          
+
             component="img"
             height={350}
             // width={348}
@@ -45,25 +46,25 @@ const CardProduct = () => {
         </CardActionArea>
       </Card>
       <Box component="div" className='text-center text-sm p-4'>
-      <Typography sx={{ color: '#4B566B' }} gutterBottom fontSize={'14px'} component="label">
-            Fresh lime
+        <Typography className='cursor-pointer' sx={{ color: '#4B566B' }} gutterBottom fontSize={'14px'} component="label" onClick={()=> router.push('/products/page')}>
+          Fresh lime
+        </Typography>
+        <Typography component="label" sx={{ color: 'text.secondary', display: 'flex', justifyContent: 'center', marginY: 0.5 }} fontSize={'14px'}>
+          <Rating readOnly
+            precision={1}
+            name="size-small" size='small' value={value} getLabelText={getLabelText}
+          />  {value !== null && (
+            <Box component="label" fontSize={'12px'} sx={{ ml: 2 }}>{labels[value]}</Box>
+          )}
+        </Typography>
+        <Box component="label" sx={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: 1 }} >
+          <Typography component="label" color='error' fontSize={14}>
+            $145.96
           </Typography>
-          <Typography component="label" sx={{ color: 'text.secondary', display: 'flex', justifyContent: 'center', marginY: 0.5 }} fontSize={'14px'}>
-            <Rating readOnly
-              precision={1}
-              name="size-small" size='small' value={value} getLabelText={getLabelText}
-            />  {value !== null && (
-              <Box component="label" fontSize={'12px'} sx={{ ml: 2 }}>{labels[value]}</Box>
-            )}
+          <Typography component="label" className='text-gray-500 line-through opacity-750' fontSize={14}>
+            $164.00
           </Typography>
-          <Box component="label" sx={{ display: 'flex', justifyContent: 'center', gap: '8px', marginTop: 1 }} >
-            <Typography component="label" color='error' fontSize={14}>
-              $145.96
-            </Typography>
-            <Typography component="label" className='text-gray-500 line-through opacity-750' fontSize={14}>
-              $164.00
-            </Typography>
-          </Box>
+        </Box>
       </Box>
     </div>
   )
