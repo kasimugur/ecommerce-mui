@@ -32,7 +32,7 @@ export default function RootLayout({
           <Header />
         </div>
 
-        <div className="mx-6">
+        <div className="mx-6 overflow-hidden">
           {children}
         </div>
       </body>
