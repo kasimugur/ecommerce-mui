@@ -23,10 +23,8 @@ const CardProduct = () => {
         onMouseLeave={() => setIsHovered(false)}>
         <CardActionArea >
           <CardMedia
-
             component="img"
             height={350}
-            // width={348}
             sx={{
               filter: isHovered ? 'blur(3px)' : 'none',
               transition: 'filter 0.3s ease',
