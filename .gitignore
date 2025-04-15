@@ -17,6 +17,7 @@ package-lock.json
 /.next/
 /out/
 *.jpg
+*.png
 # production
 /build
 
