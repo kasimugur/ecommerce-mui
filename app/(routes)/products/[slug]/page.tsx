@@ -1,9 +1,24 @@
 'use client'
-import { Box, Button, ButtonGroup, Card, CardMedia, Chip, ImageList, ImageListItem, Rating, Tab, Tabs, Typography } from '@mui/material';
+import { Avatar, Box, Button, ButtonGroup, Card, CardMedia, Chip, ImageList, ImageListItem, Rating, Tab, Tabs, TextField, Typography } from '@mui/material';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
-
+function Review({ name, rating, time, text, avatar }) {
+  return (
+    <Box display="flex" alignItems="flex-start" mb={4}>
+      <Avatar alt={`Profile picture of ${name}`} src={avatar} />
+      <Box ml={2}>
+        <Typography variant="subtitle1" component="div">{name}</Typography>
+        <Box display="flex" alignItems="center">
+          <Rating size='small' value={rating} readOnly />
+          <Typography variant="body2" color="textSecondary" ml={1}>{rating}</Typography>
+          <Typography variant="body2" color="textSecondary" ml={2}>{time}</Typography>
+        </Box>
+        <Typography width={600} fontSize={14} sx={{ color: '#4B566B' }} variant="body2">{text}</Typography>
+      </Box>
+    </Box>
+  );
+}
 const ProductsDetail = () => {
   const labels: { [index: string]: string } = {
     1: '(1)',
@@ -41,6 +56,31 @@ const ProductsDetail = () => {
   const handleChangeTabs = (event, newValue) => {
     setValueTabs(newValue);
   };
+  const reviews = [
+    { name: "Jannie Schumm", rating: 4.7, time: "4 years ago", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.", avatar: "/avatar1.png" },
+    {
+      name: "Joe Kenan",
+      rating: 4.7,
+      time: "6 years ago",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.",
+      avatar: "/avatar2.png" // Avatar URL'sini buraya ekleyebilirsiniz
+    },
+    {
+      name: "Jenifer Tulio",
+      rating: 4.7,
+      time: "4 years ago",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Varius massa id ut mattis. Facilisis vitae gravida egestas ac account.",
+      avatar: "/avatar3.png" // İkinci avatar URL'sini buraya ekleyebilirsiniz
+    }
+  ]
+  const Specification = [
+    "Brand: Beats",
+    "Model: S450",
+    "Wireless Bluetooth Headset",
+    "FM Frequency Response: 87.5 – 108 MHz",
+    "Feature: FM Radio, Card Supported (Micro SD / TF)",
+    "Made in China"
+  ]
   return (
     <>
       <div className="flex container justify-start w-full gap-24 mx-8  ">
@@ -56,7 +96,6 @@ const ProductsDetail = () => {
                 opacity: selectedImage === item.id ? 1 : 0.4,
                 borderRadius: '10px',
                 borderColor: selectedImage === item.id ? '#D23F57' : '#2B3445',
-
               }} onClick={() => handleImageClick(item.id)} component={'span'}>
                 <Image
                   className='rounded-[10px]'
@@ -150,36 +189,95 @@ const ProductsDetail = () => {
           </Button>
         </Box>
       </div>
-      <Box component={'div'} className='text-start'>
-      <Tabs value={valueTabs} onChange={handleChangeTabs}>
-        <Tab label="Description" />
-        <Tab label="Review (3)" />
-      </Tabs>
-      
-      {valueTabs === 0 && (
-        <Box sx={{ p: 3 }}>
-          <Typography variant="h6">Specification:</Typography>
-          <Typography>Brand: Beats</Typography>
-          <Typography>Model: S450</Typography>
-          <Typography>Wireless Bluetooth Headset</Typography>
-          <Typography>FM Frequency Response: 87.5 – 108 MHz</Typography>
-          <Typography>Feature: FM Radio, Card Supported (Micro SD / TF)</Typography>
-          <Typography>Made in China</Typography>
-        </Box>
-      )}
-      
-      {valueTabs === 1 && (
-        <Box sx={{ p: 3 }}>
-          <Typography variant="h6">Reviews</Typography>
-          <Typography>Jannie Schumm - ⭐⭐⭐⭐ 4.7 (4 years ago)</Typography>
-          <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
-          <Typography>Joe Kenan - ⭐⭐⭐⭐ 4.7 (6 years ago)</Typography>
-          <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
-          <Typography>Jenifer Tulio - ⭐⭐⭐⭐ 4.7 (4 years ago)</Typography>
-          <Typography>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Typography>
-        </Box>
-      )}
-    </Box>
+      <Box sx={{ marginBottom: 4 }} component={'div'} className='text-start'>
+        <Tabs sx={{
+          fontSize: '14px',
+          color: '#D23F57',
+          '& .MuiTabs-indicator': {
+            backgroundColor: '#D23F57',
+          }, marginBottom: 2
+        }} indicatorColor="secondary" value={valueTabs} onChange={handleChangeTabs}>
+          <Tab sx={{
+            '&.Mui-selected': {
+              color: '#D23F57', // Seçili tabın metin rengi
+            },
+          }} label="Description" />
+          <Tab sx={{
+            '&.Mui-selected': {
+              color: '#D23F57', // Seçili tabın metin rengi
+            },
+          }} label="Review (3)" />
+        </Tabs>
+        {valueTabs === 0 && (
+          <Box>
+            <Typography variant="h6" sx={{ fontWeight: 600, color: '#2B3445', marginBottom: 2 }}>Specification:</Typography>
+
+            <Box>
+              {Specification.map((item, index) => (
+                <Typography key={index} sx={{ marginBottom: 1, color: '#2B3445', fontSize: '14px' }}>
+                  {item}
+                </Typography>
+              ))}
+            </Box>
+          </Box>
+        )}
+        {valueTabs === 1 && (
+          <>
+            <Box mt={2}>
+              {reviews.map((item, index) => (
+                <Review
+                  key={index}
+                  name={item.name}
+                  rating={item.rating}
+                  time={item.time}
+                  text={item.text}
+                  avatar={item.avatar}
+                />
+              ))}
+
+            </Box>
+            <Box mt={4}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: '#2B3445' }}>Write a Review for this product</Typography>
+              <Box component={'div'} className='flex' mt={2}>
+                <Typography component={'span'} className='text-sm text-[#4B566B]'>Your Rating *</Typography>
+                <Rating name="simple-controlled" value={2} />
+              </Box>
+              <Box mt={2}>
+                <Typography component={'span'} className='text-sm text-[#4B566B]'>Your Review *</Typography>
+                <TextField
+                  fullWidth
+                  sx={{
+                    height: '200px', color: '#2B3445', '& .MuiOutlinedInput-root': {
+                      color: '#2B3445',
+                      borderRadius: '8px',
+                      border: '1px solid #2b34451a', // Başlangıçta kenar rengi
+                      '&:hover': {
+                        borderColor: 'black', // Hover durumunda kenar rengi
+                      },
+                      '&:focus-within': {
+                        borderColor: '#E3364E',
+                      },
+                      '& fieldset': {
+                        border: 'none',
+                        fontSize: '14px', // Kenarı kaldır
+                      },
+                    },
+                  }}
+                  multiline
+                  size='small'
+                  rows={8}
+                  variant="outlined"
+                  placeholder="Write a review here..."
+
+                />
+              </Box>
+              <Box mt={2}>
+                <Button sx={{ borderRadius: 2, backgroundColor: '#E3364E' }} variant="contained" >Submit</Button>
+              </Box>
+            </Box>
+          </>
+        )}
+      </Box>
     </>
   )
 }
