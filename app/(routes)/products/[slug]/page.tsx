@@ -73,6 +73,7 @@ const ProductsDetail = () => {
       avatar: "/avatar3.png" // İkinci avatar URL'sini buraya ekleyebilirsiniz
     }
   ]
+
   const Specification = [
     "Brand: Beats",
     "Model: S450",
@@ -81,9 +82,10 @@ const ProductsDetail = () => {
     "Feature: FM Radio, Card Supported (Micro SD / TF)",
     "Made in China"
   ]
+  
   return (
-    <>
-      <div className="flex container justify-start w-full gap-24 mx-8  ">
+    <>  
+      <div className="flex container justify-start w-full gap-24 mx-8">
         <div className='basis-2/5 mb-12'>
           <Card className='mb-12' sx={{ maxWidth: 600 }}>
             <CardMedia image={currentImage}
@@ -98,7 +100,7 @@ const ProductsDetail = () => {
                 borderColor: selectedImage === item.id ? '#D23F57' : '#2B3445',
               }} onClick={() => handleImageClick(item.id)} component={'span'}>
                 <Image
-                  className='rounded-[10px]'
+                  className='rounded-[10px] cursor-pointer'
                   src={item.src}
                   alt={item.title}
                   width={62}
@@ -136,6 +138,7 @@ const ProductsDetail = () => {
                   sx={{
                     borderRadius: '6px',
                     borderColor: selectedChip === option ? '#D23F57' : undefined,
+                    
                     color: selectedChip === option ? '#D23F57' : undefined,
                     '&:hover': {
                       // transition:
@@ -243,11 +246,12 @@ const ProductsDetail = () => {
                 <Rating name="simple-controlled" value={2} />
               </Box>
               <Box mt={2}>
-                <Typography component={'span'} className='text-sm text-[#4B566B]'>Your Review *</Typography>
+                <Typography component={'span'} className='
+                text-sm text-[#4B566B]'>Your Review *</Typography>
                 <TextField
                   fullWidth
                   sx={{
-                    height: '200px', color: '#2B3445', '& .MuiOutlinedInput-root': {
+                      height: '200px', color: '#2B3445', '& .MuiOutlinedInput-root': {
                       color: '#2B3445',
                       borderRadius: '8px',
                       border: '1px solid #2b34451a', // Başlangıçta kenar rengi
@@ -268,7 +272,6 @@ const ProductsDetail = () => {
                   rows={8}
                   variant="outlined"
                   placeholder="Write a review here..."
-
                 />
               </Box>
               <Box mt={2}>
