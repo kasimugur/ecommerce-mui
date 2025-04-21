@@ -1,5 +1,6 @@
 'use client'
-import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Chip, Rating, Typography } from '@mui/material'
+import { AddShoppingCartRounded, FavoriteBorderRounded, RemoveRedEyeRounded } from '@mui/icons-material';
+import { Box, Button, ButtonGroup, Card, CardActionArea, CardMedia, Chip, IconButton, Rating, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 const labels: { [index: string]: string } = {
@@ -21,13 +22,14 @@ const CardProduct = () => {
       <Card className='bg-[#383838] mt-12' sx={{ maxWidth: 348, backgroundColor: '#F6F9FC' }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}>
-        <CardActionArea >
+        <CardActionArea className='group'>
           <CardMedia
             component="img"
             height={350}
             sx={{
               filter: isHovered ? 'blur(3px)' : 'none',
               transition: 'filter 0.3s ease',
+              position:'relative'
             }}
             image="https://template.getbazaar.io/_next/image?url=%2Fassets%2Fimages%2FGroceries%20Shop%2Flime.png&w=1920&q=75"
             alt="green iguana"
@@ -41,10 +43,22 @@ const CardProduct = () => {
             borderRadius: '4px',
             paddingX: '12px'
           }} size='small' label="7% off" />
+          <ButtonGroup sx={{}} variant="contained" className='groupbuttonhover' aria-label="Basic button group">
+            <IconButton aria-label="review">
+              <RemoveRedEyeRounded />
+            </IconButton>
+            <IconButton aria-label="favorite">
+              <FavoriteBorderRounded />
+            </IconButton>
+            <IconButton aria-label="addShop">
+              <AddShoppingCartRounded />
+            </IconButton>
+          </ButtonGroup>
+          <Button className='buttongroupshop' size='small' variant='outlined' color='error'>+ Add To Cart</Button>
         </CardActionArea>
       </Card>
       <Box component="div" className='text-center text-sm p-4'>
-        <Typography className='cursor-pointer' sx={{ color: '#4B566B' }} gutterBottom fontSize={'14px'} component="label" onClick={()=> router.push('/products/page')}>
+        <Typography className='cursor-pointer' sx={{ color: '#4B566B' }} gutterBottom fontSize={'14px'} component="label" onClick={() => router.push('/products/page')}>
           Fresh lime
         </Typography>
         <Typography component="label" sx={{ color: 'text.secondary', display: 'flex', justifyContent: 'center', marginY: 0.5 }} fontSize={'14px'}>

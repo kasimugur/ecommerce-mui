@@ -5,4 +5,13 @@
 .searchbar{
   @apply rounded-none focus:border-x-red-900 !important;
 }
+.groupbuttonhover{
+  @apply group-hover:block hidden  absolute top-[126] left-[108]  bg-[#F3f5f9] transition ease-out  !important 
+}
+.groupbuttonstyle{
+  @apply gap-[2]  text-gray-600 hover:text-gray-900 !important
+}
 
+.buttongroupshop{
+  @apply group-hover:block hidden  absolute  left-[107] bottom-5  bg-[#F3f5f9] transition ease-out  !important 
+}
